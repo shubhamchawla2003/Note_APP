@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import Navbar from '../components/Navbar'
 import NoteForm from '../context/NoteForm';
 import axios from 'axios';
+import { NotesEndpoint } from '../api/url';
 
 
 const Home = () => {
@@ -13,7 +14,7 @@ const Home = () => {
   // to get the notes and display them
   const fetchNotes = React.useCallback(async () => {
     try {
-      const { data } = await axios.get('http://localhost:5000/api/note');
+    const { data } = await axios.get(NotesEndpoint());
       console.log(data);
       setNotes(data.notes);
     } catch (error) {
@@ -28,7 +29,7 @@ const Home = () => {
 const handleDelete = async (id) => {
     try {
         const token = localStorage.getItem('token');
-        const { data } = await axios.delete(`http://localhost:5000/api/note/${id}`, {
+        const { data } = await axios.delete(NotesEndpoint(`/${id}`), {
             headers: {
                 Authorization: `Bearer ${token}`,
             },

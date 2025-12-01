@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from 'axios';
+import { AuthEndpoint } from '../api/url';
 import { useAuth } from "../context/ContextProvider.jsx";
 
 export default function Login() {
@@ -23,7 +24,7 @@ export default function Login() {
         }
 
         try{
-            const response = await axios.post('http://localhost:5000/api/auth/login', form);
+            const response = await axios.post(AuthEndpoint('/login'), form);
             console.log(response.data);
             if(response.data.success){
                 login(response.data.user);

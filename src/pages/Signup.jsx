@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { AuthEndpoint } from '../api/url';
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 
@@ -32,7 +33,7 @@ const Signup = () => {
         }*/
 
         try{
-            const response = await axios.post('http://localhost:5000/api/auth/signup', form);
+            const response = await axios.post(AuthEndpoint('/signup'), form);
             setSuccess(response.data.message);
             console.log(response.data);
             if(response.data.success){

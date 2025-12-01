@@ -1,5 +1,6 @@
 import React from 'react'
 import axios from 'axios';
+import { NotesEndpoint } from '../api/url';
 
 const NoteForm = ({ setIsOpen, onSaved }) => {
     const [title, setTitle] = React.useState('')
@@ -11,14 +12,14 @@ const NoteForm = ({ setIsOpen, onSaved }) => {
         if (!payload.title && !payload.content) return
 
             try{
-            const response = await axios.post('http://localhost:5000/api/note/add',
-                {title,content},{
-                    headers: {
-                        Authorization: `Bearer ${localStorage.getItem('token')}`
-                    }
+                const response = await axios.post(NotesEndpoint('/add'),
+                    {title,content},{
+                        headers: {
+                            Authorization: `Bearer ${localStorage.getItem('token')}`
+                        }
 
-                }
-            );
+                    }
+                );
             
             console.log(response.data);
             if (response.data.success) {
